@@ -1,12 +1,13 @@
 import argparse
+import getpass
 import sys
 import zipfile
 from pathlib import Path
 from urllib.error import HTTPError
 from urllib.request import urlretrieve
-from mysql.connector.errors import ProgrammingError
 
 import mysql.connector
+from mysql.connector.errors import ProgrammingError
 
 if 'raw_input' in locals():
     input = raw_input
@@ -71,7 +72,7 @@ def wpconfig_process(path):
     while not connected:
         dbname = input("Inserire il nome del database (wordpress): ") or "wordpress"
         dbuser = input("Inserire l'utente del database (wp): ") or "wp"
-        dbpassword = input("Inserire la password del database (password): ") or "password"
+        dbpassword = getpass.getpass("Inserire la password del database (password): ") or "password"
         dbhost = input("Inserire host del database (localhost): ") or "localhost"
 
         sampleconfig = open(path + "/wordpress/wp-config-sample.php", "r")
